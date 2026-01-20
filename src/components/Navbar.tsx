@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+import { GoogleAuthButton, useGoogleAuth } from '@/components/GoogleAuth';
 import { useSubscription } from '@/hooks/useSubscription';
 
 export function Navbar() {
-  const { user, loading: authLoading, signOut } = useAuth();
+  const { user, loading: authLoading } = useGoogleAuth();
   const { isPro, loading: subLoading } = useSubscription();
 
   const loading = authLoading || subLoading;
@@ -57,28 +57,10 @@ export function Navbar() {
                 >
                   Account
                 </Link>
-                <button
-                  onClick={() => signOut()}
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                  Sign out
-                </button>
+                <GoogleAuthButton />
               </>
             ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="text-gray-600 hover:text-gray-900 transition-colors"
-                >
-                  Sign in
-                </Link>
-                <Link
-                  href="/signup"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-                >
-                  Sign up
-                </Link>
-              </>
+              <GoogleAuthButton />
             )}
           </div>
         </div>
