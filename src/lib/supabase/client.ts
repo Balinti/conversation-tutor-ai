@@ -1,21 +1,17 @@
 import { createBrowserClient } from '@supabase/ssr';
 
+// Hardcoded Supabase configuration - shared across all apps
+const SUPABASE_URL = 'https://api.srv936332.hstgr.cloud';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE';
+
 let cachedClient: ReturnType<typeof createBrowserClient> | null = null;
 
 export function createClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  // Return null if Supabase is not configured
-  if (!supabaseUrl || !supabaseAnonKey) {
-    return null;
-  }
-
   // Return cached client if available
   if (cachedClient) {
     return cachedClient;
   }
 
-  cachedClient = createBrowserClient(supabaseUrl, supabaseAnonKey);
+  cachedClient = createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   return cachedClient;
 }

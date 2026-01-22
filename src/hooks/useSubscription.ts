@@ -25,11 +25,6 @@ export function useSubscription(): UseSubscriptionReturn {
     }
 
     const supabase = createClient();
-    if (!supabase) {
-      setSubscription(null);
-      setLoading(false);
-      return;
-    }
 
     const { data } = await supabase
       .from('subscriptions')
